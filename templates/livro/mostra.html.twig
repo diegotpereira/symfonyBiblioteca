@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block body %} 
+    <div class="panel panel-default">
+        <div class="panel-heading>
+           Hover Rows
+        </div>
+
+        <div class="panel-body>
+            <div class="table-responsive">
+               <table class="table table-hover">
+                   <tr>
+                      <th>Nome</th>
+                      <td>{{livro.nome}}</td>
+                    <tr>
+                    <tr>
+                       <th>Autor</th>
+                       <td>{{ livro.autor }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}    
+            

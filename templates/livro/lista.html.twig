@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block  body %}
+     <div class="panel panel-default">
+         <div class="panel-heading>
+             Livros
+         </div>
+
+         <div class="panel-body">
+             <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <td>Autor</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for livro in livros %}
+                        <tr>
+                            <td><a href="/livro/edita/{{livro.id}}">{{livro.nome}}</a></td>
+                            <td>
+                            {{ livro.autor}}  
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table> 
+            </div>
+        </div>
+    </div>
+{% endblock %}                         
+   

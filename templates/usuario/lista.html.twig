@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+   <div class="panel panel-default">
+       <div class="panel-heading">
+           Usuario
+       </div>
+
+       <div class="panel-body">
+           <div class="table-responsive"> 
+               <table class="table table-hover">
+                  <thead>
+                  <tr>
+                     <th>Login</th>
+                     <th>Permissão</th>
+                     <th>Ações</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for usuario in usuarios %}
+                      <tr>
+                        <td><a href="/usuario/edita/{{ usuario.id}}">{{ usuario.login}}</a></td>
+                        <td>{{ usuario.permissoes|join(",")}}</td>
+                        <td>
+                          <a class="btn btn-danger" href="/usuario/remove/{{ usuario.id}}">Remover</a>
+                        </td>
+                       </tr>
+                   {% endfor %}
+                   </tbody>
+                </table>
+            </div>       
+        </div>
+    </div>
+{% endblock %}           

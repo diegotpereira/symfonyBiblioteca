@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class"panel panel-default">
+        <div class="panel-heading">
+             Hover Rows
+        </div>
+
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                   <tr>
+                       <th>Login</th>
+                       <td>{{ usuario.login}}</td>
+                   </tr>
+                   <tr>
+                       <th>Senha</th>
+                       <td>{{ usuario.senha}}</td>
+                   </tr>
+                   <tr> 
+                       <th>Permissões</th>
+                       <td>{{ usuario.permissoes|join(",")}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}                       
