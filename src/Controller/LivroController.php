@@ -53,16 +53,16 @@ class LivroController extends AbstractController
         return $this->redirect("/livro/lista");
     }
     /**
-     * @Route("livro/lista", methods="GET", name="admin_livro_lista")
+     * @Route("/livro/lista", methods="GET", name="admin_livro_lista")
      */
     public function lista()
     {
         $repository = $this->getDoctrine()->getManager()->getRepository(Livro::class);
 
-        return $this->render("Livro/lista.html.twig", ["livros" => $repository->findAll]);
+        return $this->render("Livro/lista.html.twig", ["livros" => $repository->findAll()]);
     }
     /**
-     * @Route("livro/edita/{id}", methods="GET")
+     * @Route("/livro/edita/{id}", methods="GET")
      */
     public function mostra(Livro $livro)
     {
@@ -71,10 +71,10 @@ class LivroController extends AbstractController
                      ->add('autor')
                      ->getForm();
 
-        return $this->render('Livro/edita.html', ["livro" => $livro, "form" => $form->createView()]);        
+        return $this->render('Livro/edita.html.twig', ["livro" => $livro, "form" => $form->createView()]);        
     }
     /**
-     * @Route("livro/edita/{id}", methods="POST")
+     * @Route("/livro/edita/{id}", methods="POST")
      */
     public function edita(Livro $livro, Request $request)
     {

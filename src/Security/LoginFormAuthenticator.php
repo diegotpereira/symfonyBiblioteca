@@ -6,7 +6,7 @@ use App\Entity\Usuario;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
@@ -25,19 +25,19 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     public const LOGIN_ROUTE = 'app_login';
 
     private $entityManager;
-    private $urlGenerator;
+    private $router;
     private $csrfTokenManager;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager)
+    public function __construct(EntityManagerInterface $entityManager, RouterInterface  $router, CsrfTokenManagerInterface $csrfTokenManager)
     {
         $this->entityManager = $entityManager;
-        $this->urlGenerator = $urlGenerator;
+        $this->router = $router;
         $this->csrfTokenManager = $csrfTokenManager;
     }
 
     public function supports(Request $request)
     {
-        return self::LOGIN_ROUTE === $request->attributes->get('_route')
+        return 'app_login' === $request->attributes->get('_route')
             && $request->isMethod('POST');
     }
 
@@ -77,6 +77,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     {
         // Check the user's password or other credentials and return true or false
         // If there are no credentials to check, you can just return true
+        return $credentials["password"] == $user->getPassword();
         throw new \Exception('TODO: check the credentials inside '.__FILE__);
     }
 
@@ -87,11 +88,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         }
 
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        return new RedirectResponse($this->router->generate('admin_livro_lista'));
     }
 
     protected function getLoginUrl()
     {
-        return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+        return $this->router->generate('app_login');
     }
 }

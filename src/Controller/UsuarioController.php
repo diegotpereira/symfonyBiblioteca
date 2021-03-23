@@ -10,24 +10,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class UsuarioController extends AbstractController
 {
     /**
-     * @Route("Usuario/mostra", methods="GET")
+     * @Route("/usuario/mostra", methods="GET")
      */
     public function mostraAction()
     {
         return $this->render('Usuario/mostra.html.twig', ["usuario" => new Usuario()]);
     }
     /**
-     * @Route('/usuario/novo", methods="GET")
+     * @Route("/usuario/novo", methods="GET")
      */
     public function formulario()
     {
-        $form = $this->createFormBuilder(new Usuario)
+        $form = $this->createFormBuilder(new Usuario())
                      ->add('login')
                      ->add('senha')
                      ->add('permissoes', ChoiceType::class,[
                          "multiple" => true,
                          "choices" => [
-                         "Bibliotecario" => "ROLE_BIBLIOTECARIO", "Atendente" => "ROLE_ATENDENTE"
+                         "Biblíotecario" => "ROLE_BIBLIOTECARIO", "Atendente" => "ROLE_ATENDENTE"
 
                          ]
                      ])
@@ -37,7 +37,7 @@ class UsuarioController extends AbstractController
         return $this->render("Usuario/novo.html.twig", ["form" => $form->createView()])             ;
     }
     /**
-     * @Route("Usuario/novo", methods="POST")
+     * @Route("/usuario/novo", methods="POST")
      */
     public function cria(Request $request)
     {
@@ -81,7 +81,7 @@ class UsuarioController extends AbstractController
                      ->add('permissoes', ChoiceType::class, [
                          "multiple" => true,
                          "choices" =>  [
-                             "Biblotecario" => "ROLE_BIBLIOTECARIO", "Atendente" => "ROLE_ATENDENTE"
+                             "Biblíotecario" => "ROLE_BIBLIOTECARIO", "Atendente" => "ROLE_ATENDENTE"
                          ]
                      ])
                      ->setAction("/usuario/edita/".$usuario->getId())
@@ -94,9 +94,9 @@ class UsuarioController extends AbstractController
     public function edita(Usuario $usuario, Request $request)
     {
         $form = $this->createFormBuilder($usuario)
-                     ->('login')
-                     ->('senha')
-                     ->('permissoes', ChoiceType::class, [
+                     ->add('login')
+                     ->add('senha')
+                     ->add('permissoes', ChoiceType::class, [
                          "multiple" => true,
                          "choices" => [
                              "Bibliotecario" => "ROLE_BIBLIOTECARIO", "Atendente" => "ROLE_ATENDENTE"
